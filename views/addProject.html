@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link rel="stylesheet" href="../public/css/addProject.css">
+    <title>My Project</title>
+</head>
+<body>
+     <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <img  src="../public/assets/logo-dumbways.png" alt="" width="40px" style="margin-left: 60px;">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active me-4 ms-4" aria-current="page" href="/"><b>Home</b></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/addProject">Add Project</a>
+              </li>
+            </ul>
+            <a href="/contact" class="btn btn-dark">Contact Me</a>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+
+
+      <!-- form contact-me -->
+      <div class="container-fluid py-5 text-black" style="background-color: #D8D8D8 !important">
+        <div class="container">
+            <h2 class="text-center mb-4">GET IN TOUCH</h2>
+
+            <div class="offset-lg-2 col-lg-8 d-flex justify-content-center">
+                <form style="width: 500px" action="/addProject" method="POST">
+                    <div class="mb-3">
+                        <label for="nama" class="form-label"><b>Project Name</b></label>
+                        <input type="text" id="nama" class="form-control shadow rounded" autocomplete="off" name="inputName">
+                    </div>
+    
+                    <div class="div-date d-flex my-2">
+                        <div class="w-100 mb-3">
+                            <label for="startDate" class="form-label"><b>Start Date</b></label>
+                            <input type="date" id="startDate" class="form-control shadow rounded" autocomplete="off" name="startDate">
+                        </div>
+        
+                        <div class="w-100 mb-3">
+                            <label for="endDate" class="form-label"><b>End Date</b></label>
+                            <input type="date" id="endDate" class="form-control shadow rounded" autocomplete="off" name="endDate">
+                        </div>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="description" class="form-label"><b>Description</b></label>
+                        <textarea class="form-control shadow rounded" placeholder="" id="description" name="description"></textarea>
+                    </div>
+
+                    <div>
+                        <label for="cb" class="form-label"><b>Technologies</b></label>
+                        <div>
+                          <div class="checkbox d-flex">
+                            <div class="form-check">
+                                <input class="form-check-input shadow" type="checkbox" id="node-js" value="node-js" name="nodeJs">
+                                <label class="form-check-label me-4 " for="node-js">Node Js</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input shadow" type="checkbox" id="python" value="python" name="python">
+                                <label class="form-check-label" for="python">Python</label>
+                            </div>    
+                        </div>
+                        
+                        <div class="checkbox d-flex">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input shadow" type="checkbox" id="react" value="react" name="react">
+                                <label class="form-check-label" for="react">React Js</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input shadow " type="checkbox" id="golang" value="golang" name="golang">
+                                <label class="form-check-label" for="golang">Golang</label>
+                            </div>    
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="image" class="form-label mt-3"><b>Upload Image</b></label>
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control shadow" id="inputGroupFile02">
+                            <label class="input-group-text" for="inputGroupFile02"><img src="/public/assets/clip.png" width="30px" alt=""></label>
+                          </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-dark btn-sm prounded-pill">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+    
+
+        </div>
+      </div>
+
+
+        
+       <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>

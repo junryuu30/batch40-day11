@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+<link rel="stylesheet" href="/public/css/style.css">
+    <title>Home Web</title>
+</head>
+<body>
+ 
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <img  src="../public/assets/logo-dumbways.png" alt="" width="40px" style="margin-left: 60px;">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active me-4 ms-4" aria-current="page" href="#"><b>Home</b></a>
+              </li>
+              {{if .DataSession.IsLogin}}
+              <li class="nav-item">
+                <a class="nav-link" href="/formAddProject">Add Project</a>
+              </li>
+              {{end}}
+              
+            </ul>
+            {{if .DataSession.IsLogin}}
+            <a class="nav-link" href="#">Hi, {{.DataSession.UserName}}</a>
+            {{else}}
+            <a href="/form-register" class="btn mx-2" style="background-color: #5F7161 !important; border: none; color: white;">Register</a>
+            <a href="/form-login" class="btn mx-2" style="background-color: #5F7161 !important; border: none; color: white;">Login</a>
+            {{end}}
+            {{if .DataSession.IsLogin}}
+            <a href="/form-login" class="btn mx-2" style="background-color: #990000 !important; border: none; color: white;">Logout</a>
+            {{end}}
+            <a href="/contact" class="btn btn-dark mx-2">Contact Me</a>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+
+      <!-- Content Home -->
+
+      <div class="container-fluid" style="background-color: white;
+      border: none;
+      width: 1200px;
+      margin: 50px auto;
+      box-shadow: 0px 0px 18px rgb(194, 192, 192);">
+        <div class="container-md d-sm-flex bg-white p-3 m-3" style="width: 85%;" >
+            <div class="container-md container-sm p-3">
+                <div class="container-md container-sm">
+                  <h2>Hi Hello Welcome To My Hut</h2>
+                  <p style="text-align: justify;">
+                    Hallo, Perkenalkan nama saya Jihan, Saya berminat untuk mempunyai karir di bidang IT, terutama dalam pengembangan website, baik itu dimulai dari Frontend Developer, Backend Developer, atau menjadi Fullstack Developer. Saya berharap bisa diterima dan diberi kesempatan untuk ikut serta/mendapatkan pengalaman dalam melakukan pekerjaan dibidang tersebut, walaupun saya lulusan dari non-IT. Saya berusaha mendapatkan dan belajar mengenai skill ini, dan tidak menutup kemungkinan untuk belajar skill lainnya dibidang yang sama(ranah IT lainnya) dimasa depan. Terima Kasih.</p>
+                </div>
+                    
+
+                <div class="d-flex" >
+                    <div class="button me-4" >
+                        <button class="btn btn-dark" style="border-radius: 15px; padding: 0 30px;" type="submit">Contact</button>
+                    </div>
+                    <div>
+                        <p> download CV <img src="assets/arrow-down.png" alt="" style="width: 20px;"></p>
+                    </div>
+                </div>
+
+                <div class="sosial-media" style="font-size: 35px; padding-right: 70px;">
+                  <i class="fa-brands fa-linkedin"></i>
+                  <i class="fa-brands fa-instagram"></i>
+                  <i class="fa-brands fa-facebook"></i> 
+                  <i class="fa-brands fa-twitter"></i>  
+              </div>
+                
+            </div>
+
+            <div>
+                <div class="card m-3 shadow" style="width: 18rem;">
+                    <img src="../public/assets/picnic.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <p class="card-text text-center"><b>Jihan</b><br>Fullstack Developer</p>
+                      
+                    </div>
+                  </div>
+            </div>
+            
+              
+            
+
+        </div>
+      </div>
+
+      <!-- Card -->
+    
+      <div class="container-fluid " style="margin:auto;">
+        <h2 class="text-center p-5 m-2">MY PROJECT</h2>
+        <div class="container d-flex flex-wrap ps-5" style="padding-left: 30px;">
+
+          {{range $id, $data := .Project}}
+          <!-- Start Card -->
+            <div class="card m-2 p-2 shadow" style="width: 18rem;">
+              <img src="../public/assets/gambar1.jpg" class="card-img-top" alt="gambar-saham">
+              <div class="card-body">
+                <a href="/projectDetail/{{$id}}" class="card-title" style="font-size: 25px; color:black; text-decoration:none;">{{$data.Title}}</a>
+                <p>durasi: 3 bulan</p>
+
+                <p class="card-text">{{$data.Description}}</p>
+
+                <div class="icon">
+                  <i class="fa-brands fa-{{$data.NodeJs}} fa-lg me-2"></i>
+                  <i class="fa-brands fa-{{$data.ReactJs}} fa-lg me-2"></i>
+                  <i class="fa-brands fa-{{$data.Python}} fa-lg me-2"></i>
+                  <i class="fa-brands fa-{{$data.Golang}} fa-lg me-2"></i>
+                </div>
+
+                <div class="d-flex justify-content-center m-2">
+                  <a href="" class="btn btn-dark btn-sm" style="padding: 0 40px; margin: 0 10px;">edit</a>
+                  <a href="/delete-project/{{$data.ID}}" class="btn btn-dark btn-sm" style="padding: 0 40px; margin: 0 10px;">delete</a>
+                </div>
+              </div>
+            </div>
+          {{end}}
+
+            <div class="card m-2 p-2 shadow" style="width: 18rem;">
+              <img src="../public/assets/gambar2.jpg" class="card-img-top" alt="gambar-saham">
+              <div class="card-body">
+                <a href="/projectDetail" class="card-title" style="font-size: 25px; color:black; text-decoration:none;">titlenya</a>
+                <p>durasi: 3 bulan</p>
+
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                <div class="icon">
+                  <i class="fa-brands fa-node-js fa-lg me-2"></i>
+                  <i class="fa-brands fa-react fa-lg me-2"></i>
+                  <i class="fa-brands fa-python fa-lg me-2"></i>
+                  <i class="fa-brands fa-golang fa-lg me-2"></i>
+                </div>
+
+                <div class="d-flex justify-content-center m-2">
+                  <button type="button" class="btn btn-dark btn-sm" style="padding: 0 40px; margin: 0 10px;">edit</button>
+                  <button type="button" class="btn btn-dark btn-sm" style="padding: 0 40px; margin: 0 10px;">delete</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card m-2 p-2 shadow" style="width: 18rem;">
+              <img src="../public/assets/gambar3.jpg" class="card-img-top" alt="gambar-saham">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p>durasi: 3 bulan</p>
+
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                <div class="icon">
+                  <i class="fa-brands fa-node-js fa-lg me-2"></i>
+                  <i class="fa-brands fa-react fa-lg me-2"></i>
+                  <i class="fa-brands fa-python fa-lg me-2"></i>
+                  <i class="fa-brands fa-golang fa-lg me-2"></i>
+                </div>
+
+                <div class="d-flex justify-content-center m-2">
+                  <button type="button" class="btn btn-dark btn-sm" style="padding: 0 40px; margin: 0 10px;">edit</button>
+                  <button type="button" class="btn btn-dark btn-sm" style="padding: 0 40px; margin: 0 10px;">delete</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card m-2 p-2 shadow" style="width: 18rem;">
+              <img src="../public/assets/gambar4.jpg" class="card-img-top" alt="gambar-saham">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p>durasi: 3 bulan</p>
+
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                <div class="icon">
+                  <i class="fa-brands fa-node-js fa-lg me-2"></i>
+                  <i class="fa-brands fa-react fa-lg me-2"></i>
+                  <i class="fa-brands fa-python fa-lg me-2"></i>
+                  <i class="fa-brands fa-golang fa-lg me-2"></i>
+                </div>
+
+                <div class="d-flex justify-content-center m-2">
+                  <button type="button" class="btn btn-dark btn-sm" style="padding: 0 40px; margin: 0 10px;">edit</button>
+                  <button type="button" class="btn btn-dark btn-sm" style="padding: 0 40px; margin: 0 10px;">delete</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card m-2 p-2 shadow" style="width: 18rem;">
+              <img src="../public/assets/gambar5.jpg" class="card-img-top" alt="gambar-saham">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p>durasi: 3 bulan</p>
+
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                <div class="icon">
+                  <i class="fa-brands fa-node-js fa-lg me-2"></i>
+                  <i class="fa-brands fa-react fa-lg me-2"></i>
+                  <i class="fa-brands fa-python fa-lg me-2"></i>
+                  <i class="fa-brands fa-golang fa-lg me-2"></i>
+                </div>
+
+                <div class="d-flex justify-content-center m-2">
+                  <button type="button" class="btn btn-dark btn-sm" style="padding: 0 40px; margin: 0 10px;">edit</button>
+                  <button type="button" class="btn btn-dark btn-sm" style="padding: 0 40px; margin: 0 10px;">delete</button>
+                </div>
+              </div>
+            </div>
+
+            
+
+        </div>
+      </div>
+
+        <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>
