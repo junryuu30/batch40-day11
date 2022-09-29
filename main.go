@@ -65,8 +65,9 @@ type Project struct {
 	Python       string
 	ReactJs      string
 	Golang       string
-	// StartDate    int
-	// EndDate      int
+	// StartDate    string
+	// EndDate      string
+	// Duration     string
 }
 
 type User struct {
@@ -136,6 +137,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	resData := map[string]interface{}{
 		"DataSession": Data,
 		"Project":     result,
+		"Pesan":       "Anda Berhasil Log In, Selamat Datang",
 	}
 
 	fmt.Println(result)
@@ -179,24 +181,34 @@ func addProject(w http.ResponseWriter, r *http.Request) {
 
 	title := r.PostForm.Get("inputName")
 	description := r.PostForm.Get("description")
-	// var startDate = r.PostForm.Get("startDate")
-	// var endDate = r.PostForm.Get("endDate")
+	// start_date := r.PostForm.Get("startDate")
+	// end_date := r.PostForm.Get("endDate")
 
 	// nodeJs := r.PostForm.Get("nodeJs")
 	// python := r.PostForm.Get("python")
 	// reactJs := r.PostForm.Get("react")
 	// golang := r.PostForm.Get("golang")
 
-	// newProject := Project{
-	// 	Title:       title,
-	// 	Description: description,
-	// 	NodeJs:      nodeJs,
-	// 	Python:      python,
-	// 	ReactJs:     reactJs,
-	// 	Golang:      golang,
-	// }
+	// layout := "2006-01-02"
+	// dateStart, _ := time.Parse(layout, start_date)
+	// dateEnd, _ := time.Parse(layout, end_date)
 
-	_, err = connection.Conn.Exec(context.Background(), "INSERT INTO table_project2(title, description) VALUES ($1, $2)", title, description)
+	// //duration = (dateEnd - dateStart) in go:
+	// hours := dateEnd.Sub(dateStart).Hours()
+	// daysInHours := (hours / 24)
+	// monthInDay := (daysInHours / 30)
+	// fmt.Println(daysInHours)
+	// var duration string
+	// var month, _ float64 = math.Modf(monthInDay)
+
+	// if monthInDay > 0 {
+	// 	duration = strconv.FormatFloat(month, 'f', 0, 64) + " Bulan"
+	// } else if daysInHours <= 31 {
+	// 	duration = strconv.FormatFloat(daysInHours, 'f', 0, 64) + " Hari"
+	// }
+	// fmt.Println("ini durasinya: ", duration)
+
+	_, err = connection.Conn.Exec(context.Background(), "INSERT INTO table_project2(title, description) VALUES ($1, $2, $3, $4)", title, description)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("message: " + err.Error()))
@@ -316,6 +328,22 @@ func formLogin(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("message: " + err.Error()))
 		return
 	}
+
+	var store = sessions.NewCookieStore([]byte("SESSION_KEY"))
+	session, _ := store.Get(r, "SESSION_KEY")
+
+	fm := session.Flashes("message")
+
+	var flashes []string
+	if len(fm) > 0 {
+		session.Save(r, w)
+		for _, f1 := range fm {
+			// meamasukan flash message
+			flashes = append(flashes, f1.(string))
+		}
+	}
+
+	Data.FlashData = strings.Join(flashes, "")
 
 	tmpl.Execute(w, nil)
 

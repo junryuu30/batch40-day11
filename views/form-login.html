@@ -29,10 +29,17 @@
 
 
 
-      <!-- form contact-me -->
+      <!-- form log In -->
       <div class="container-fluid py-5 text-black" style="background-color: #D8D8D8 !important; height: 599px;">
         <div class="container">
             <h2 class="text-center mb-4">Login</h2>
+
+            {{if .FlashData}}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{.FlashData}}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {{end}}
 
             <div class="offset-lg-2 col-lg-8 d-flex justify-content-center">
                 <form style="width: 500px" action="/login" method="POST">
