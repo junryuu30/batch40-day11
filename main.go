@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"personal-web/connection"
 	"strconv"
+	"strings"
 	"text/template"
 
 	"github.com/gorilla/mux"
@@ -36,6 +37,8 @@ func main() {
 
 	route.HandleFunc("/form-login", formLogin).Methods("GET")
 	route.HandleFunc("/login", login).Methods("POST")
+
+	route.HandleFunc("/logout", logout).Methods("GET")
 
 	fmt.Println("server running in port 8080")
 	http.ListenAndServe("localhost:8080", route)
@@ -102,6 +105,18 @@ func home(w http.ResponseWriter, r *http.Request) {
 		Data.UserName = session.Values["Name"].(string)
 	}
 
+	fm := session.Flashes("message")
+
+	var flashes []string
+	if len(fm) > 0 {
+		session.Save(r, w)
+		for _, f1 := range fm {
+			flashes = append(flashes, f1.(string))
+		}
+	}
+
+	Data.FlashData = strings.Join(flashes, "")
+
 	data, _ := connection.Conn.Query(context.Background(), "SELECT id, title, description FROM table_project2 ORDER BY id DESC")
 	fmt.Println(data)
 
@@ -124,6 +139,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println(result)
+	w.WriteHeader(http.StatusOK)
 
 	tmpl.Execute(w, resData)
 
@@ -346,5 +362,15 @@ func login(w http.ResponseWriter, r *http.Request) {
 	session.Save(r, w)
 
 	http.Redirect(w, r, "/", http.StatusMovedPermanently)
+
+}
+
+func logout(w http.ResponseWriter, r *http.Request) {
+	var store = sessions.NewCookieStore([]byte("SESSION_KEY"))
+	session, _ := store.Get(r, "SESSION_KEY")
+	session.Options.MaxAge = -1
+	session.Save(r, w)
+
+	http.Redirect(w, r, "/form-login", http.StatusSeeOther)
 
 }
